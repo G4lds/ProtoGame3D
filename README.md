@@ -1,2 +1,4 @@
 # ProtoGame3D
- jogo para cadeira de prototipagem 3d
+ Jogo para cadeira de prototipagem 3d
+
+ Feito em godot 4.2
