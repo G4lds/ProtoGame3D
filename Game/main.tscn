@@ -1,3 +1,134 @@
-[gd_scene format=3 uid="uid://dd6pbry5akgr1"]
+[gd_scene load_steps=11 format=3 uid="uid://dd6pbry5akgr1"]
 
-[node name="Main" type="Node2D"]
+[ext_resource type="Script" path="res://Jogador.gd" id="1_cyoch"]
+[ext_resource type="Script" path="res://Dialogo.gd" id="2_4cc5n"]
+[ext_resource type="Texture2D" uid="uid://dp6wrbc2ah0rk" path="res://Assets/dialogbox.png" id="2_ram3x"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_orobm"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_novjg"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hq6sb"]
+size = Vector2(100, 100)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_k4iwi"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hdr0h"]
+size = Vector3(4, 4, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tilnn"]
+size = Vector3(4, 4, 4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qakdv"]
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+shadow_size = 0
+
+[node name="Main" type="Node3D"]
+
+[node name="Jogador" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+script = ExtResource("1_cyoch")
+
+[node name="Colisao" type="CollisionShape3D" parent="Jogador"]
+shape = SubResource("CapsuleShape3D_orobm")
+
+[node name="Mesh" type="MeshInstance3D" parent="Jogador"]
+mesh = SubResource("CapsuleMesh_novjg")
+
+[node name="Camera" type="Camera3D" parent="Jogador"]
+transform = Transform3D(1, -0.000808466, 0.000360262, 0.000520253, 0.866187, 0.49972, -0.000716061, -0.499719, 0.866187, -0.00942183, 6.01193, 9.97896)
+
+[node name="Terreno" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 8, 10)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Terreno"]
+transform = Transform3D(0.707107, 0.353553, -0.612372, -0.353553, 0.926777, 0.126826, 0.612372, 0.126827, 0.78033, 0, 10.1961, -5.66025)
+shadow_enabled = true
+
+[node name="Chao" type="StaticBody3D" parent="Terreno"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, -1.9282, -12.6603)
+
+[node name="Mesh" type="MeshInstance3D" parent="Terreno/Chao"]
+mesh = SubResource("PlaneMesh_hq6sb")
+skeleton = NodePath("../../..")
+
+[node name="Colisao" type="CollisionShape3D" parent="Terreno/Chao"]
+shape = SubResource("WorldBoundaryShape3D_k4iwi")
+
+[node name="Cub0" type="StaticBody3D" parent="Terreno"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 5.30385, -21.1865)
+
+[node name="Mesh" type="MeshInstance3D" parent="Terreno/Cub0"]
+mesh = SubResource("BoxMesh_hdr0h")
+skeleton = NodePath("../../..")
+
+[node name="Colisao" type="CollisionShape3D" parent="Terreno/Cub0"]
+shape = SubResource("BoxShape3D_tilnn")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Dialogo" type="MarginContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_4cc5n")
+TEXTO = "texto de dialogo o npc esta falando comigo
+fdsfsdfsdf
+fdsfdsdf"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control/Dialogo"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+texture = ExtResource("2_ram3x")
+region_rect = Rect2(0, 0, 255, 255)
+patch_margin_left = 51
+patch_margin_top = 51
+patch_margin_right = 51
+patch_margin_bottom = 51
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Dialogo"]
+layout_mode = 2
+alignment = 1
+
+[node name="Margin1" type="Panel" parent="Control/Dialogo/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Dialogo/VBoxContainer"]
+layout_mode = 2
+
+[node name="Margin1" type="Panel" parent="Control/Dialogo/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="Texto" type="Label" parent="Control/Dialogo/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "texto de dialogo o npc esta falando comigo
+fdsfsdfsdf
+fdsfdsdf"
+label_settings = SubResource("LabelSettings_qakdv")
+vertical_alignment = 1
+
+[node name="Margin2" type="Panel" parent="Control/Dialogo/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="Margin2" type="Panel" parent="Control/Dialogo/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
