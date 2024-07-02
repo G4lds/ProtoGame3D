@@ -29,19 +29,19 @@ func _physics_process(delta):
 			acelecacao.z += 1 * abs(direction.z) * ACELERACAO
 		velocity.x = direction.x * VELOCIDADE * acelecacao.x / INERCIA
 		velocity.z = direction.z * VELOCIDADE * acelecacao.z / INERCIA
+		
+	if acelecacao.x < 1:
+		acelecacao.x = 1
+		velocity.x = 0
 	else:
-		if acelecacao.x < 1:
-			acelecacao.x = 1
-			velocity.x = 0
-		else:
-			acelecacao.x -= 1
-			velocity.x = sign(velocity.x) * VELOCIDADE * acelecacao.x / INERCIA
-			
-		if acelecacao.z < 1:
-			acelecacao.z = 1
-			velocity.z = 0
-		else:
-			acelecacao.z -= 1
-			velocity.z = sign(velocity.z) * VELOCIDADE * acelecacao.z / INERCIA
+		acelecacao.x -= 1
+		velocity.x = sign(velocity.x) * VELOCIDADE * acelecacao.x / INERCIA
+		
+	if acelecacao.z < 1:
+		acelecacao.z = 1
+		velocity.z = 0
+	else:
+		acelecacao.z -= 1
+		velocity.z = sign(velocity.z) * VELOCIDADE * acelecacao.z / INERCIA
 
 	move_and_slide()
