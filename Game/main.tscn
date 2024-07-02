@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dd6pbry5akgr1"]
+[gd_scene load_steps=14 format=3 uid="uid://dd6pbry5akgr1"]
 
 [ext_resource type="Script" path="res://Jogador.gd" id="1_cyoch"]
+[ext_resource type="Script" path="res://main.gd" id="1_gj0hd"]
 [ext_resource type="Script" path="res://Dialogo.gd" id="2_4cc5n"]
+[ext_resource type="PackedScene" uid="uid://cmurcn67svybu" path="res://Nodos/npc.tscn" id="2_j4wjt"]
 [ext_resource type="Texture2D" uid="uid://dp6wrbc2ah0rk" path="res://Assets/dialogbox.png" id="2_ram3x"]
+[ext_resource type="PackedScene" uid="uid://ebqix78siwqi" path="res://Nodos/item.tscn" id="4_1vddj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_orobm"]
 
@@ -25,6 +28,7 @@ font_color = Color(0, 0, 0, 1)
 shadow_size = 0
 
 [node name="Main" type="Node3D"]
+script = ExtResource("1_gj0hd")
 
 [node name="Jogador" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -66,6 +70,32 @@ skeleton = NodePath("../../..")
 [node name="Colisao" type="CollisionShape3D" parent="Terreno/Cub0"]
 shape = SubResource("BoxShape3D_tilnn")
 
+[node name="Entidades" type="Node3D" parent="."]
+
+[node name="NPC" parent="Entidades" instance=ExtResource("2_j4wjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -12)
+ID = 0
+
+[node name="NPC2" parent="Entidades" instance=ExtResource("2_j4wjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.693, 1, -12)
+ID = 1
+
+[node name="Item" parent="Entidades" instance=ExtResource("4_1vddj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1.24314, 0)
+ID = 0
+
+[node name="Item2" parent="Entidades" instance=ExtResource("4_1vddj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1.24314, 4)
+ID = 1
+
+[node name="Item3" parent="Entidades" instance=ExtResource("4_1vddj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1.24314, 7)
+ID = 2
+
+[node name="Item4" parent="Entidades" instance=ExtResource("4_1vddj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.24314, 9)
+ID = 3
+
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -73,13 +103,16 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Dialogo" type="MarginContainer" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 518.0
+offset_right = 620.0
+offset_bottom = 106.0
+grow_horizontal = 2
 script = ExtResource("2_4cc5n")
-TEXTO = "texto de dialogo o npc esta falando comigo
-fdsfsdfsdf
-fdsfdsdf"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Control/Dialogo"]
 layout_mode = 2
@@ -115,13 +148,39 @@ layout_mode = 2
 [node name="Texto" type="Label" parent="Control/Dialogo/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "texto de dialogo o npc esta falando comigo
-fdsfsdfsdf
-fdsfdsdf"
 label_settings = SubResource("LabelSettings_qakdv")
 vertical_alignment = 1
 
 [node name="Margin2" type="Panel" parent="Control/Dialogo/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Dialogo/VBoxContainer"]
+layout_mode = 2
+
+[node name="Margin1" type="Panel" parent="Control/Dialogo/VBoxContainer/HBoxContainer2"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="Button1" type="Button" parent="Control/Dialogo/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Margin2" type="Panel" parent="Control/Dialogo/VBoxContainer/HBoxContainer2"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="Control/Dialogo/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Margin3" type="Panel" parent="Control/Dialogo/VBoxContainer/HBoxContainer2"]
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(20, 20)
@@ -132,3 +191,18 @@ modulate = Color(1, 1, 1, 0)
 self_modulate = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+
+[node name="Hud" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextEdit" type="RichTextLabel" parent="Control/Hud"]
+layout_mode = 0
+offset_left = 952.0
+offset_top = 550.0
+offset_right = 1148.0
+offset_bottom = 649.0
+
+[connection signal="pressed" from="Control/Dialogo/VBoxContainer/HBoxContainer2/Button1" to="Control/Dialogo" method="_on_button_1_pressed"]
+[connection signal="pressed" from="Control/Dialogo/VBoxContainer/HBoxContainer2/Button2" to="Control/Dialogo" method="_on_button_2_pressed"]

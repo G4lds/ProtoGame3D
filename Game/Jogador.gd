@@ -1,13 +1,13 @@
 extends CharacterBody3D
 
-
-
-const SPEED = 5.0
-const JUMP_VELOCITY = 15
-const INERCIA = 60
+const TIPO = "Player"
+const VELOCIDADE = 5.0
+const JUMP_VELOCITY = 12
+const INERCIA = 33
 const ACELERACAO = 5
 const GRAVITY = 15
 var acelecacao = Vector3(1,1,1)
+var inventario = [0,0,0,0,0]
 
 
 func _physics_process(delta):
@@ -27,24 +27,21 @@ func _physics_process(delta):
 			acelecacao.x += 1 * abs(direction.x) * ACELERACAO
 		if acelecacao.z < INERCIA:
 			acelecacao.z += 1 * abs(direction.z) * ACELERACAO
-		velocity.x = direction.x * SPEED * acelecacao.x / INERCIA
-		velocity.z = direction.z * SPEED * acelecacao.z / INERCIA
+		velocity.x = direction.x * VELOCIDADE * acelecacao.x / INERCIA
+		velocity.z = direction.z * VELOCIDADE * acelecacao.z / INERCIA
 	else:
 		if acelecacao.x < 1:
 			acelecacao.x = 1
 			velocity.x = 0
 		else:
 			acelecacao.x -= 1
-			velocity.x = sign(velocity.x) * SPEED * acelecacao.x / INERCIA
+			velocity.x = sign(velocity.x) * VELOCIDADE * acelecacao.x / INERCIA
 			
 		if acelecacao.z < 1:
 			acelecacao.z = 1
 			velocity.z = 0
 		else:
 			acelecacao.z -= 1
-			velocity.z = sign(velocity.z) * SPEED * acelecacao.z / INERCIA
-			
-		
-	print(acelecacao)
+			velocity.z = sign(velocity.z) * VELOCIDADE * acelecacao.z / INERCIA
 
 	move_and_slide()

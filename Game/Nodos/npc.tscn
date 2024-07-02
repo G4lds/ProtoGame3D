@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmurcn67svybu"]
+
+[ext_resource type="Script" path="res://NPC.gd" id="1_h4qig"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_vp603"]
+radius = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gsa66"]
+
+[node name="NPC" type="Node3D"]
+script = ExtResource("1_h4qig")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_vp603")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_gsa66")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
